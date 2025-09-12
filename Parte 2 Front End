@@ -1,1 +1,33 @@
+ Método calcularImpacto() - Lógica principal
+private void calcularImpacto() {
+    try {
+        String nome = nomeField.getText();
+        double energia = Double.parseDouble(energiaField.getText());
+        boolean renovavel = renovavelCheckBox.isSelected();
+        String aplicacao = aplicacaoField.getText();
+        double eficiencia = Double.parseDouble(eficienciaField.getText());
+        
+        ImpactoIA impacto = new ImpactoIA(nome, energia, renovavel, aplicacao);
+        impacto.aplicarOtimizacao(eficiencia);
+        
+        controller.setImpacto(impacto);
+        
+        String resultado = controller.gerarRelatorio();
+        resultadoArea.setText(resultado);
+        
+    } catch (NumberFormatException ex) {
+        resultadoArea.setText("Erro: Por favor, insira valores numéricos válidos para energia e eficiência.");
+    } catch (Exception ex) {
+        resultadoArea.setText("Erro: " + ex.getMessage());
+    }
+}
 
+Método limparCampos() - Reset do formulário
+private void limparCampos() {
+    nomeField.clear();
+    energiaField.clear();
+    renovavelCheckBox.setSelected(false);
+    aplicacaoField.clear();
+    eficienciaField.clear();
+    resultadoArea.clear();
+}
